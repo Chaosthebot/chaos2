@@ -1,11 +1,12 @@
 const PROD = true;
 const GITHUB_TOKEN = require("./keys.js");
 if (PROD) {
-    const REPO_OWNER = "Chaosthebot";
-    const REPO_NAME = "chaos2";
+    var REPO_OWNER = "Chaosthebot";
+    var REPO_NAME = "chaos2";
+} else {
+    var REPO_OWNER = "Smittyvb";
+    var REPO_NAME = "chaos-2";
 }
-const REPO_OWNER = "Smittyvb";
-const REPO_NAME = "chaos-2";
 const THRESHOLD = 4;
 const UPVOTES = ["+1", "upvote", "i like it", "i really like it"];
 const DOWNVOTES = ["-1", "downvote", "i dislike it", "i really dislike it", "i hate it", "i really hate it"];
