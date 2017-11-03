@@ -1,4 +1,4 @@
-const PROD = false;
+const PROD = true;
 const GITHUB_TOKEN = require("./keys.js");
 if (PROD) {
     const REPO_OWNER = "Chaosthebot";
