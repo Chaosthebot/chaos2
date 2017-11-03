@@ -1,0 +1,22 @@
+{
+  "name": "chaos2",
+  "version": "0.0.1",
+  "description": "Chaos 2.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Smittyvb/chaos-2.git"
+  },
+  "author": "Smittyvb",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Smittyvb/chaos-2/issues"
+  },
+  "homepage": "https://github.com/Smittyvb/chaos-2#readme",
+  "dependencies": {
+    "github-api": "^3.0.0"
+  }
+}

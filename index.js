@@ -1,0 +1,75 @@
+const PROD = false;
+const GITHUB_TOKEN = require("./keys.js");
+if (PROD) {
+    const REPO_OWNER = "Chaosthebot";
+    const REPO_NAME = "chaos2";
+}
+const REPO_OWNER = "Smittyvb";
+const REPO_NAME = "chaos-2";
+const THRESHOLD = 4;
+const UPVOTES = ["+1", "upvote", "i like it", "i really like it"];
+const DOWNVOTES = ["-1", "downvote", "i dislike it", "i really dislike it", "i hate it", "i really hate it"];
+var GitHub = require('github-api');
+
+// basic auth
+var gh = new GitHub({
+    username: 'Smittyvb',
+    token: GITHUB_TOKEN
+});
+
+var rateLimit = 500; //Wait between requests, to stay under rate limits. Before we get data, assume that it's high.
+gh.getRateLimit().getRateLimit().then(function (newRateLimit) {
+    rateLimit = ((newRateLimit.data.resources.core.reset - (Date.now() / 1000)) * 1000) / newRateLimit.data.resources.core.remaining;
+    rateLimit = 1 / rateLimit;
+    console.log("Got rate limit: " + (rateLimit * 1).toFixed(19) + " reqs/s.");
+});
+
+var repo = gh.getRepo(REPO_OWNER, REPO_NAME);
+var issues = gh.getIssues(REPO_OWNER, REPO_NAME);
+repo.listPullRequests({
+    state: "open",
+    base: "master" //ignore non-master PRs
+}).then(function (prs) {
+    prs = prs.data;
+    prs.forEach(function (prOverview) {
+        issues.listIssueComments(prOverview.number).then(function (comments) {
+            var score = 0;
+            var voters = []; //anyone in this list will have their votes ignored
+            comments = comments.data;
+            comments.forEach(function (comment) {
+                if (voters.indexOf(comment.user.login) > -1) {
+                    if (PROD) {
+                        return;
+                    }
+                }
+                var commentBody = comment.body.toLowerCase();
+                for (var upIndex = 0; upIndex < UPVOTES.length; upIndex++) {
+                    if ((commentBody.indexOf(UPVOTES[upIndex]) > -1)) {
+                        score++;
+                        voters.push(comment.user.id);
+                        return;
+                    }
+                }
+                for (var downIndex = 0; downIndex < DOWNVOTES.length; downIndex++) {
+                    if ((commentBody.indexOf(DOWNVOTES[downIndex]) > -1)) {
+                        score--;
+                        voters.push(comment.user.id);
+                        return;
+                    }
+                }
+            });
+            console.log(score);
+            if (score >= THRESHOLD) {
+                repo.mergePullRequest(prOverview.number, {
+                    commit_message: "Merging #" + prOverview.number + ", with a score of " + score + "."
+                }).then(function (res) {
+                    if (res.status === 200) {
+                        console.log("Suceessfully merged pull request #" + prOverview.number + "!");
+                    } else {
+                        console.log("Attempted, but failed, to merge #" + prOverview.number + ", with a status of " + res.status);
+                    }
+                });
+            }
+        });
+    });
+});
