@@ -40,7 +40,7 @@ function lookAtPrs() {
                 var voters = []; //anyone in this list will have their votes ignored
                 comments = comments.data;
                 comments.forEach(function (comment) {
-                    if (voters.indexOf(comment.user.login) > -1) {
+                    if (voters.indexOf(comment.user.id) > -1) {
                         if (PROD) {
                             return;
                         }
