@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Smittyvb/chaos-2.git"
+    "url": "git+https://github.com/Chaosthebot/chaos2.git"
   },
   "author": "Smittyvb",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Smittyvb/chaos-2/issues"
+    "url": "https://github.com/Chaosthebot/chaos2/issues"
   },
-  "homepage": "https://github.com/Smittyvb/chaos-2#readme",
+  "homepage": "https://github.com/Chaosthebot/chaos2#readme",
   "dependencies": {
     "github-api": "^3.0.0"
   }
