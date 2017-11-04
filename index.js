@@ -69,9 +69,9 @@ function lookAtPrs() {
                         if (res.status === 200) {
                             console.log("Suceessfully merged pull request #" + prOverview.number + "!");
                             exec("git pull", function () {
-                                exec("node index.js", function () {
-                                    process.exit();
-                                });
+                                require('child_process').execSync.execSync('node index');
+                                console.log("An update caused the new server code to exit: #" + prOverview.number);
+                                process.exit(1);
                             });
                             
 
