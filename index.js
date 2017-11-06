@@ -1,20 +1,12 @@
-const PROD = true;
-const GITHUB_TOKEN = require("./keys.js");
-if (PROD) {
-    var REPO_OWNER = "Chaosthebot";
-    var REPO_NAME = "chaos2";
-} else {
-    var REPO_OWNER = "Smittyvb";
-    var REPO_NAME = "chaos-2";
-}
-const THRESHOLD = 4;
+const { PROD, THRESHOLD, UPVOTES, DOWNVOTES, REPO_OWNER, REPO_NAME } = require("./consts");
+
+const GITHUB_TOKEN = require("./keys");
+
 const { exec } = require('child_process');
-const UPVOTES = ["+1", "upvote", "i like it", "i really like it"];
-const DOWNVOTES = ["-1", "downvote", "i dislike it", "i really dislike it", "i hate it", "i really hate it"];
-var GitHub = require('github-api');
+const GitHub = require('github-api');
 
 // basic auth
-var gh = new GitHub({
+const gh = new GitHub({
     username: 'Smittyvb',
     token: GITHUB_TOKEN
 });
