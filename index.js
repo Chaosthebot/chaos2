@@ -73,7 +73,7 @@ function lookAtPrs() {
                                 console.log("An update caused the new server code to exit: #" + prOverview.number);
                                 process.exit(1);
                             });
-                            
+
 
                         } else {
                             console.log("Attempted, but failed, to merge #" + prOverview.number + ", with a status of " + res.status);
