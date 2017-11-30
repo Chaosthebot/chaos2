@@ -9,8 +9,8 @@ if (PROD) {
 }
 const THRESHOLD = 4;
 const { exec } = require('child_process');
-const UPVOTES = ["+1", "upvote", "i like it", "i really like it"];
-const DOWNVOTES = ["-1", "downvote", "i dislike it", "i really dislike it", "i hate it", "i really hate it"];
+const UPVOTES = ["+1", "upvote", "i like it", "i really like it", "👍"];
+const DOWNVOTES = ["-1", "downvote", "i dislike it", "i really dislike it", "i hate it", "i really hate it", "👎"];
 var GitHub = require('github-api');
 
 // basic auth
@@ -69,7 +69,7 @@ function lookAtPrs() {
                         if (res.status === 200) {
                             console.log("Suceessfully merged pull request #" + prOverview.number + "!");
                             exec("git pull", function () {
-                                require('child_process').execSync.execSync('node index');
+                                require('child_process').execSync('node index');
                                 console.log("An update caused the new server code to exit: #" + prOverview.number);
                                 process.exit(1);
                             });
