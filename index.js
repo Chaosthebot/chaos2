@@ -9,8 +9,8 @@ if (PROD) {
 }
 const THRESHOLD = 4;
 const { exec } = require('child_process');
-const UPVOTES = ["+1", "upvote", "i like it", "i really like it"];
-const DOWNVOTES = ["-1", "downvote", "i dislike it", "i really dislike it", "i hate it", "i really hate it"];
+const UPVOTES = ["+1", "upvote", "i like it", "i really like it", "👍"];
+const DOWNVOTES = ["-1", "downvote", "i dislike it", "i really dislike it", "i hate it", "i really hate it", "👎"];
 var GitHub = require('github-api');
 
 // basic auth
@@ -73,7 +73,7 @@ function lookAtPrs() {
                                 console.log("An update caused the new server code to exit: #" + prOverview.number);
                                 process.exit(1);
                             });
-                            
+
 
                         } else {
                             console.log("Attempted, but failed, to merge #" + prOverview.number + ", with a status of " + res.status);
